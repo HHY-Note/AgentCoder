@@ -1,6 +1,6 @@
-# 🤖 AgentCoder Pro
+# 🤖 AgentCoder 
 
-**AgentCoder Pro** 是一个基于大语言模型（LLM）的自主多智能体协同开发框架。它突破了传统 AI 代码生成器仅停留在文本层面的局限，通过赋予智能体“物理双手”（工具调用），实现了从**需求规划**、**代码编写**、**沙盒编译**到**自动化测试修复**的全流程自愈闭环。
+**AgentCoder ** 是一个基于大语言模型（LLM）的自主多智能体协同开发框架。它突破了传统 AI 代码生成器仅停留在文本层面的局限，通过赋予智能体“物理双手”（工具调用），实现了从**需求规划**、**代码编写**、**沙盒编译**到**自动化测试修复**的全流程自愈闭环。
 
 ---
 
@@ -63,7 +63,7 @@ AGENT_LLM_CONFIG = {
     "architect": {
         "model": "glm-5",
         "api_key": "YOUR_API_KEY",
-        "base_url": "[https://open.bigmodel.cn/api/paas/v4/](https://open.bigmodel.cn/api/paas/v4/)",
+        "base_url": "https://open.bigmodel.cn/api/paas/v4/",
         "temperature": 0.7
     },
     # 按照相同格式配置 coder 和 tester...
