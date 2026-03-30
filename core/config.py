@@ -9,7 +9,7 @@ load_dotenv()
 # 统一的默认模型凭证 (当前全部使用你的 GLM-5 配置)
 # ==========================================
 DEFAULT_MODEL = "glm-5"
-DEFAULT_API_KEY = "fe986bcf51184e85ae8c4df8d47b40cb.GXggHYM45DxVM86d"
+DEFAULT_API_KEY = " your key "
 DEFAULT_BASE_URL = "https://open.bigmodel.cn/api/paas/v4/"
 
 # ==========================================
