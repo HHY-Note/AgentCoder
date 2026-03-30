@@ -37,27 +37,27 @@ Agent_Coder/
 │   ├── fs_tools.py         # 文件系统工具 (write/read/ls)
 │   └── exec_tools.py       # 终端执行工具 (subprocess/shell)
 └── workspace/              # ⚠️ 物理沙盒隔离区 (代码产出的案发现场)
+```
 
-🚀 快速开始
-1. 环境准备
+# 🚀 快速开始
+1. ### 环境准备
 
 确保你的系统安装了 Python 3.8+，推荐在 Linux 环境（如 Ubuntu 22.04+）下运行。
 创建并激活虚拟环境
-Bash
-
+```Bash
 python3 -m venv venv
 source venv/bin/activate
+```
 
 安装核心依赖
-Bash
-
+```Bash
 pip install langchain-openai langgraph python-dotenv
+```
 
-2. 配置中心
+2. ### 配置中心
 
 打开 core/config.py，配置您的模型凭证：
-Python
-
+```Python
 # core/config.py
 AGENT_LLM_CONFIG = {
     "architect": {
@@ -68,11 +68,11 @@ AGENT_LLM_CONFIG = {
     },
     # 按照相同格式配置 coder 和 tester...
 }
-
-3. 运行项目
-Bash
-
+```
+3. ### 运行项目
+```Bash
 python3 main.py
+```
 
 🛡️ 安全与审计
 
