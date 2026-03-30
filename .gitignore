@@ -1,0 +1,17 @@
+# Python 字节码
+__pycache__/
+*.py[cod]
+
+# 虚拟环境
+venv/
+.venv/
+
+# 敏感配置
+.env
+
+# 忽略 Agent 的实验产出（这样你的仓库只保留 AI 框架）
+workspace/
+
+# 忽略编译中间产物
+*.o
+*.so
