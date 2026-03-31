@@ -16,7 +16,7 @@ def main():
     
     while True:
         try:
-            print("🧑‍💻 请输入需求，或输入 exit 退出):")
+            print("🧑‍💻 请输入需求，或输入 exit 退出:")
             lines = []
             while True:
                 # 巧妙的提示符：第一行显示 "> "，后续行显示缩进 "  "
