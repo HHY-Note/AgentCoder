@@ -1,30 +1,55 @@
 # tools/exec_tools.py
-import os
 import subprocess
 from langchain_core.tools import tool
-
-WORKSPACE_ROOT = os.path.abspath(os.path.join(os.getcwd(), "workspace"))
+from tools.fs_tools import get_workspace_root
 
 @tool
 def execute_command(command: str) -> str:
     """
-    在工作区 (workspace) 内执行终端命令。
-    用于：编译代码 (gcc)、运行脚本 (python3)、执行单元测试。
+    在工作区终端中执行 Shell 或编译命令。
+    例如: "make all", "gcc -o main src/main.c", "./test_runner"
     """
-    print(f"⚙️  [沙盒执行]: {command}")
+    workspace_dir = get_workspace_root()
     try:
-        # 细节：必须设置 cwd=WORKSPACE_ROOT，确保 AI 不会乱跑
-        # 细节：设置 timeout，防止 AI 写出死循环导致宿主机卡死，这也会产生异常日志供 eBPF 捕获
         result = subprocess.run(
-            command, shell=True, cwd=WORKSPACE_ROOT,
-            capture_output=True, text=True, timeout=15
+            command,
+            shell=True,
+            cwd=workspace_dir,
+            text=True,
+            capture_output=True,
+            timeout=30 # 防止跑死循环
         )
-        
-        output = f"Exit Code: {result.returncode}\n"
-        if result.stdout: output += f"STDOUT: {result.stdout}\n"
-        if result.stderr: output += f"STDERR: {result.stderr}\n"
+        output = f"命令: {command}\n"
+        output += f"[STDOUT]\n{result.stdout}\n" if result.stdout else ""
+        output += f"[STDERR]\n{result.stderr}\n" if result.stderr else ""
+        output += f"Return Code: {result.returncode}"
         return output
     except subprocess.TimeoutExpired:
-        return "❌ 错误：命令执行超时（15秒）。可能存在无限循环或性能极差。"
+        return f"❌ 命令执行超时 (30秒): {command}"
     except Exception as e:
-        return f"❌ 运行异常: {str(e)}"
+        return f"❌ 执行报错: {str(e)}"
+
+@tool
+def run_with_test_data(command: str, test_data: str) -> str:
+    """
+    运行可执行文件，并通过标准输入 (stdin) 注入测试数据。
+    适用于需要 scanf/cin 读取数据的程序。
+    """
+    workspace_dir = get_workspace_root()
+    try:
+        result = subprocess.run(
+            command,
+            shell=True,
+            cwd=workspace_dir,
+            input=test_data,
+            text=True,
+            capture_output=True,
+            timeout=10
+        )
+        output = f"执行命令: {command}\n"
+        output += f"[输出结果]\n{result.stdout}\n" if result.stdout else ""
+        output += f"[错误信息]\n{result.stderr}\n" if result.stderr else ""
+        output += f"Return Code: {result.returncode}"
+        return output
+    except Exception as e:
+        return f"❌ 测试执行失败: {str(e)}"
