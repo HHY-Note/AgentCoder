@@ -11,7 +11,7 @@ def architect_node(state: AgentState) -> dict:
     model_name = getattr(llm, 'model_name', '未知模型')
     
     if not state.get("messages") or not isinstance(state["messages"][-1], ToolMessage):
-        print(f"🚀 [系统底层] 主进程拉起了 ARCHITECT Agent (PID: {os.getpid()})")
+        print(f"\n🚀 [系统底层] 主进程拉起了 ARCHITECT Agent (PID: {os.getpid()})")
         print(f"🧐 [Architect PID:{os.getpid()} | Model: {model_name}]: 正在深度思考并构筑软件架构 (请耐心等待推理)...")
         
     llm_with_tools = llm.bind_tools([list_directory, read_file, write_file])
